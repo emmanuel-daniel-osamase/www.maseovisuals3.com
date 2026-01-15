@@ -1,0 +1,825 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- =========================================== -->
+    <!-- IMPROVED META TAGS & TITLE -->
+    <!-- =========================================== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maseo Visuals | Professional Visual Designer & Motion Graphics Artist</title>
+    <meta name="description" content="Professional visual designer specializing in motion graphics, brand identity, and digital experiences. 8+ years of creative design expertise.">
+    <meta name="keywords" content="visual designer, motion graphics, brand identity, logo design, promotional flyers, event flyers, Nigeria designer">
+    <meta name="author" content="Emmanuel Daniel Osamase">
+    
+    <!-- Open Graph Tags for Social Sharing -->
+    <meta property="og:title" content="Maseo Visuals | Professional Visual Designer">
+    <meta property="og:description" content="Creating impactful visual experiences through motion graphics, brand identity, and digital design.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://maseovisual.com">
+    <meta property="og:image" content="images/maseo-logo.webp">
+
+    <!-- DNS Prefetch -->
+<link rel="dns-prefetch" href="https://fonts.googleapis.com">
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+
+<!-- Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+
+<!-- Preload Fonts -->
+<link rel="preload" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@300;400;600;700&display=swap" as="style">
+
+<!-- Performance Meta Tags -->
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="mobile-web-app-capable" content="yes">
+
+    <!-- =========================================== -->
+    <!-- FONTS & EXTERNAL STYLES -->
+    <!-- =========================================== -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Lato:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- =========================================== -->
+    <!-- FIXED FOOTER & IMPROVED SPACING -->
+    <!-- =========================================== -->
+    <style>
+        /* FIX FOOTER VISIBILITY - CRITICAL FIX */
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        main {
+            flex: 1 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .main-footer {
+            flex-shrink: 0;
+            position: relative;
+            z-index: 2;
+            background: var(--card-bg) !important;
+        }
+        
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            display: block;
+        }
+        
+        .hero-section {
+            position: relative;
+            z-index: 1;
+            min-height: calc(100vh - 70px);
+            display: flex;
+            align-items: center;
+            padding-top: 70px !important;
+            margin-bottom: 0;
+        }
+        
+        .main-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--overlay-color);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-color);
+            height: 70px;
+        }
+        
+        /* FIX FOR "HELLO, I'M" SPACING */
+        .hero-text-wrapper {
+            padding-top: 40px;
+        }
+        
+        .greeting {
+            margin-bottom: 8px !important;
+        }
+        
+        .hero-title {
+            margin-bottom: 12px !important;
+        }
+        
+        .typing-container {
+            margin-bottom: 15px !important;
+        }
+        
+        /* FIX PORTFOLIO FILTER BUTTONS */
+        .portfolio-filters {
+            position: relative;
+            z-index: 10;
+        }
+        
+        .filter-btn {
+            position: relative;
+            z-index: 5;
+        }
+        
+        /* ACCESSIBILITY IMPROVEMENTS */
+        .btn, .filter-btn, .social-link, .mode-toggle {
+            outline: 2px solid transparent;
+            transition: outline-color 0.3s ease;
+        }
+        
+        .btn:focus, .filter-btn:focus, .social-link:focus, .mode-toggle:focus {
+            outline: 2px solid var(--primary);
+            outline-offset: 2px;
+        }
+        
+        /* SKIP TO MAIN CONTENT FOR ACCESSIBILITY */
+        .skip-to-content {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: var(--gradient-primary);
+            color: white;
+            padding: 8px 16px;
+            text-decoration: none;
+            border-radius: 4px;
+            z-index: 1001;
+            transition: top 0.3s ease;
+        }
+        
+        .skip-to-content:focus {
+            top: 10px;
+        }
+        
+        /* LOADING STATE FOR FILTERS */
+        .filter-btn.loading {
+            opacity: 0.7;
+            cursor: wait;
+        }
+        
+        /* MOBILE LAYOUT FIX - FIXED ORDER */
+        @media (max-width: 768px) {
+            .hero-content {
+                display: flex;
+                flex-direction: column;
+            }
+            
+            .hero-text-wrapper {
+                order: 1;
+                margin-bottom: 1.5rem;
+                padding-top: 20px !important; /* Reduced padding for mobile */
+            }
+            
+            .hero-visual {
+                order: 2;
+                margin-top: 1.5rem;
+                margin-bottom: 2rem;
+            }
+            
+            /* Mobile spacing adjustments */
+            .greeting {
+                margin-bottom: 6px !important;
+            }
+            
+            .hero-title {
+                margin-bottom: 10px !important;
+            }
+            
+            .typing-container {
+                margin-bottom: 12px !important;
+            }
+            
+            .main-footer {
+                margin-top: auto;
+            }
+        }
+        
+        /* SMALL MOBILE */
+        @media (max-width: 480px) {
+            .hero-text-wrapper {
+                padding-top: 15px !important; /* Further reduced for small mobile */
+            }
+            
+            .greeting {
+                margin-bottom: 5px !important;
+            }
+            
+            .hero-title {
+                margin-bottom: 8px !important;
+            }
+            
+            .typing-container {
+                margin-bottom: 10px !important;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .hero-content {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 3rem;
+                align-items: center;
+            }
+            
+            .hero-text-wrapper {
+                padding-top: 40px;
+            }
+        }
+        
+        /* Extra large screens */
+        @media (min-width: 1200px) {
+            .hero-text-wrapper {
+                padding-top: 50px;
+            }
+        }
+        
+        /* FIX FOR FOOTER BOTTOM VISIBILITY */
+        .footer-bottom {
+            opacity: 1 !important; /* Force visibility */
+            transform: translateY(0) !important; /* Remove any transform */
+            animation: none !important; /* Disable any animation */
+        }
+    </style>
+    
+    <!-- Link to CSS file -->
+    <link rel="stylesheet" href="styles-base.css">
+     <link rel="stylesheet" href="styles-optimized.css">
+</head>
+<body>
+
+    <!-- =========================================== -->
+    <!-- ACCESSIBILITY: SKIP TO CONTENT -->
+    <!-- =========================================== -->
+    <a href="#main-content" class="skip-to-content" aria-label="Skip to main content">
+        Skip to Content
+    </a>
+
+    <!-- =========================================== -->
+    <!-- PARTICLE BACKGROUND CANVAS -->
+    <!-- =========================================== -->
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+    <!-- =========================================== -->
+    <!-- HEADER & NAVIGATION -->
+    <!-- =========================================== -->
+    <header class="main-header">
+        <div class="container">
+            <!-- Logo -->
+            <a href="#home-section" class="logo" aria-label="Maseo Visuals Home">
+                <img src="images/maseo-logo.webp" alt="Maseo Visual" class="logo-main">
+            </a>
+            
+            <!-- Theme Toggle -->
+            <button id="mode-toggle" class="mode-toggle" aria-label="Toggle dark/light mode">
+                <i class="fas fa-moon"></i>
+            </button>
+            
+            <!-- Navigation -->
+            <nav class="main-nav" aria-label="Main Navigation">
+                <ul role="menubar">
+                    <li role="none"><a href="#home-section" class="nav-link active" role="menuitem">Home</a></li>
+                    <li role="none"><a href="#work-section" class="nav-link" role="menuitem">Work</a></li>
+                    <li role="none"><a href="#about-section" class="nav-link" role="menuitem">About</a></li>
+                    <li role="none"><a href="#contact-section" class="nav-link" role="menuitem">Contact</a></li>
+                </ul>
+            </nav>
+            
+            <!-- Mobile Menu Toggle -->
+            <button class="hamburger" aria-label="Toggle menu" aria-expanded="false">
+                <div class="line line1"></div>
+                <div class="line line2"></div>
+                <div class="line line3"></div>
+            </button>
+        </div>
+    </header>
+
+    <!-- =========================================== -->
+    <!-- MAIN CONTENT -->
+    <!-- =========================================== -->
+    <main id="main-content">
+        <!-- =========================================== -->
+        <!-- HERO SECTION -->
+        <!-- =========================================== -->
+        <section id="home-section" class="hero-section">
+            <div class="container">
+                <div class="hero-content">
+                    <!-- Hero Text - First on Mobile -->
+                    <div class="hero-text-wrapper">
+                        <!-- In the hero section -->
+<div class="greeting">Hello, I'm</div>
+<h1 class="hero-title">
+    <span>Emmanuel Daniel</span>
+    <span>Osamase</span>
+</h1>
+                        <div class="typing-container" aria-live="polite">
+                            <span class="tagline" id="typed-text"></span>
+                            <span class="cursor">|</span>
+                        </div>
+                        <p class="hero-description">
+                            A passionate Visual Designer specializing in creating impactful brand identities, 
+                            motion graphics, and digital experiences that connect with audiences and drive results.
+                        </p>
+                        <div class="hero-cta">
+                            <a href="#work-section" class="btn pulse-btn">
+                                <span>View Portfolio</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <a href="#contact-section" class="btn secondary-btn">
+                                <span>Let's Connect</span>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Hero Visual - 3D Card Slider - Second on Mobile -->
+                    <div class="hero-visual">
+                        <div class="slider-3d-container">
+                            <!-- 3D Slide Track -->
+                            <div class="slider-track" id="sliderTrack">
+                                <!-- Cards dynamically generated by JavaScript -->
+                            </div>
+                            
+                            <!-- Auto-rotation indicator -->
+                            <div class="auto-rotation-indicator">
+                                <div class="indicator-dots">
+                                    <div class="dot active"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                    <div class="dot"></div>
+                                </div>
+                                <span class="indicator-text">Featured works <br>scroll automatically. Pause on hover or tap to view each design in detail.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- =========================================== -->
+        <!-- WORK SECTION - PORTFOLIO WITH ANIMATIONS -->
+        <!-- =========================================== -->
+        <section id="work-section" class="work-section">
+            <div class="container">
+                <!-- Page Header with Animation -->
+                <div class="page-header scroll-animate">
+                    <h2>Featured Projects</h2>
+                    <p>A curated selection of my latest work showcasing diverse design disciplines</p>
+                </div>
+                
+                <!-- Portfolio Filters with Animation - FIXED -->
+                <div class="portfolio-filters scroll-animate" id="portfolioFilters">
+                    <button class="filter-btn active" data-filter="all">All Projects</button>
+                    <button class="filter-btn" data-filter="motion">Motion Graphics</button>
+                    <button class="filter-btn" data-filter="promotional-flyer">Brand Promotions</button>
+                    <button class="filter-btn" data-filter="birthday-flyer">Birthday Designs</button>
+                    <button class="filter-btn" data-filter="event-flyer">Event Designs</button>
+                    <button class="filter-btn" data-filter="club-flyer">Nightlife Flyers</button>
+                    <button class="filter-btn" data-filter="logo">Logo Design</button>
+                </div>
+
+                <!-- Portfolio Grid -->
+                <div class="portfolio-grid" id="portfolio-items">
+                    <!-- Portfolio items loaded by JavaScript -->
+                </div>
+                
+                <!-- Work Call to Action with Animation -->
+                <div class="work-cta scroll-animate">
+                    <p>Have a project in mind? Let's bring your vision to life</p>
+                    <a href="#contact-section" class="btn secondary-btn">
+                        <span>Start a Project</span>
+                        <i class="fas fa-rocket"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================== -->
+        <!-- REDESIGNED ABOUT SECTION -->
+        <!-- =========================================== -->
+        <section id="about-section" class="about-section">
+            <div class="container">
+                <!-- Page Header -->
+                <div class="page-header scroll-animate">
+                    <h1>About Me</h1>
+                    <p>Designer, Creative Thinker, and Visual Storyteller</p>
+                </div>
+
+                <!-- About Content -->
+                <div class="about-content">
+                    <!-- About Image with Badge on Left -->
+                    <div class="about-image-container scroll-animate">
+                        <div class="about-image-frame">
+                            <img src="images/passport.webp" alt="Daniel Emmanuel - Visual Designer" class="profile-image" loading="lazy">
+                        </div>
+                        <!-- Experience Badge - Now on Left Side -->
+                        <div class="experience-badge scroll-animate">
+                            <span class="years">9+</span>
+                            <span class="label">Years Experience</span>
+                        </div>
+                    </div>
+                    
+                    <!-- About Text -->
+                    <div class="about-text scroll-animate">
+                        <h2>Creating Impact Through Design</h2>
+                        <p>
+                            I'm Daniel Emmanuel Osamase, a dedicated visual designer based in Abuja, Nigeria. 
+                            With over 8 years of professional experience, I specialize in transforming 
+                            complex ideas into compelling visual narratives that resonate with target audiences.
+                        </p>
+                        <p>
+                            My design philosophy centers on the principle that great design should not only 
+                            be aesthetically pleasing but also functional, intuitive, and purpose-driven. 
+                            Every project I undertake is an opportunity to solve problems, tell stories, 
+                            and create meaningful connections between brands and their audiences.
+                        </p>
+                        
+                        <!-- Social Links -->
+                        <div class="social-about stagger-children scroll-animate">
+                            <a href="https://wa.me/2348150366290" target="_blank" aria-label="WhatsApp" class="social-link">
+                                <i class="fa-brands fa-whatsapp"></i>
+                            </a>
+                            <a href="https://www.instagram.com/maseo_visuals?igsh=MXIyN281ZmF4OW9hdw%3D%3D&utm_source=qr" target="_blank" aria-label="Instagram" class="social-link">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                            <a href="https://pin.it/1eQJwlrP8" target="_blank" aria-label="Pinterest" class="social-link">
+                                <i class="fa-brands fa-pinterest"></i>
+                            </a>
+                            <a href="https://www.tiktok.com/@em_visuals1" target="_blank" aria-label="TikTok" class="social-link">
+                                <i class="fa-brands fa-tiktok"></i>
+                            </a>
+                            <a href="https://x.com/emmanue61486591" target="_blank" aria-label="X (Twitter)" class="social-link">
+                                <i class="fa-brands fa-x-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Skills Section -->
+                <div class="skills-section scroll-animate">
+                    <h2>My Expertise</h2>
+                    <div class="skills-grid stagger-children">
+                        <!-- Visual Design Skills -->
+                        <div class="skill-category">
+                            <div class="skill-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3>Visual Design</h3>
+                            <ul>
+                                <li>UI/UX Design & Prototyping</li>
+                                <li>Brand Identity Systems</li>
+                                <li>Typography & Layout</li>
+                                <li>Digital Illustration</li>
+                                <li>Print Media Design</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Technical Skills -->
+                        <div class="skill-category">
+                            <div class="skill-icon">
+                                <i class="fas fa-code"></i>
+                            </div>
+                            <h3>Technical Skills</h3>
+                            <ul>
+                                <li>HTML5 & CSS3</li>
+                                <li>JavaScript Fundamentals</li>
+                                <li>Responsive Design</li>
+                                <li>Figma & Adobe Creative Suite</li>
+                                <li>Motion Graphics</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Creative Process -->
+                        <div class="skill-category">
+                            <div class="skill-icon">
+                                <i class="fas fa-rocket"></i>
+                            </div>
+                            <h3>Creative Process</h3>
+                            <ul>
+                                <li>Concept Development</li>
+                                <li>Adobe After-Effect</li>
+                                <li>Wireframing & Prototyping</li>
+                                <li>Visual Storytelling</li>
+                                <li>Design Systems</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================== -->
+        <!-- REDESIGNED DESIGN PRINCIPLES SECTION -->
+        <!-- =========================================== -->
+        <section id="principles-section" class="principles-section">
+            <div class="container">
+                <!-- Page Header -->
+                <div class="page-header scroll-animate">
+                    <h2>My Design Philosophy</h2>
+                    <p>The core principles that guide every project and ensure exceptional results</p>
+                </div>
+
+                <!-- Design Principles Grid -->
+                <div class="design-principles stagger-children">
+                    <!-- Principle 1 -->
+                    <div class="principle scroll-fade-in">
+                        <div class="principle-icon-circle">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3>Innovative Solutions</h3>
+                        <p>Pushing creative boundaries to deliver unique designs that stand out and make an impact</p>
+                    </div>
+                    
+                    <!-- Principle 2 -->
+                    <div class="principle scroll-fade-in">
+                        <div class="principle-icon-circle">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>Strategic Approach</h3>
+                        <p>Design with purpose and measurable outcomes that align with your business goals</p>
+                    </div>
+                    
+                    <!-- Principle 3 -->
+                    <div class="principle scroll-fade-in">
+                        <div class="principle-icon-circle">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h3>Passion-Driven</h3>
+                        <p>Investing heart and soul into every project, ensuring attention to detail and excellence</p>
+                    </div>
+                    
+                    <!-- Principle 4 -->
+                    <div class="principle scroll-fade-in">
+                        <div class="principle-icon-circle">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <h3>Timely Delivery</h3>
+                        <p>Meeting deadlines with quality results while maintaining open communication throughout</p>
+                    </div>
+                    
+                    <!-- Principle 5 -->
+                    <div class="principle scroll-fade-in">
+                        <div class="principle-icon-circle">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h3>Client Collaboration</h3>
+                        <p>Working together as partners to achieve the best results and exceed expectations</p>
+                    </div>
+                    
+                    <!-- Principle 6 -->
+                    <div class="principle scroll-fade-in">
+                        <div class="principle-icon-circle">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Results-Oriented</h3>
+                        <p>Focusing on delivering designs that drive tangible results and business growth</p>
+                    </div>
+                </div>
+                
+                <!-- CTA -->
+                <div class="principles-cta scroll-animate">
+                    <p>Ready to work with a designer who values these principles?</p>
+                    <a href="#contact-section" class="btn pulse-btn">
+                        <span>Start Your Project</span>
+                        <i class="fas fa-rocket"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- =========================================== -->
+        <!-- REDESIGNED CONTACT SECTION -->
+        <!-- =========================================== -->
+        <section id="contact-section" class="contact-section">
+            <div class="container">
+                <!-- Page Header -->
+                <div class="page-header scroll-animate">
+                    <h1>Let's Create Together</h1>
+                    <p>Ready to bring your vision to life? Get in touch and let's discuss your project</p>
+                </div>
+
+                <!-- Contact Container - Redesigned Layout -->
+                <div class="contact-container">
+                    <!-- Left Column: Contact Information -->
+                    <div class="contact-info-card scroll-animate">
+                        <h2>Get In Touch</h2>
+                        <p>Whether you have a project in mind or just want to connect, I'd love to hear from you. I'm always open to discussing new opportunities and creative collaborations.</p>
+                        
+                        <!-- Contact Details Grid -->
+                        <div class="contact-details-grid">
+                            <!-- Email -->
+                            <div class="contact-detail-item">
+                                <div class="contact-icon-circle">
+                                    <i class="fas fa-envelope"></i>
+                                </div>
+                                <div class="contact-detail-content">
+                                    <h4>Email</h4>
+                                    <p><a href="mailto:Danielosamaseemmanuel@gmail.com">Danielosamaseemmanuel@gmail.com</a></p>
+                                </div>
+                            </div>
+                            
+                            <!-- Phone/WhatsApp -->
+                            <div class="contact-detail-item">
+                                <div class="contact-icon-circle">
+                                    <i class="fas fa-phone"></i>
+                                </div>
+                                <div class="contact-detail-content">
+                                    <h4>Phone / WhatsApp</h4>
+                                    <p><a href="https://wa.me/+2348150366290">+234 815 036 6290</a></p>
+                                    <div class="availability-badge">
+                                        <i class="fas fa-clock"></i>
+                                        Available for calls
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <!-- Location -->
+                            <div class="contact-detail-item">
+                                <div class="contact-icon-circle">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </div>
+                                <div class="contact-detail-content">
+                                    <h4>Location</h4>
+                                    <p>Abuja, Nigeria</p>
+                                    <div class="availability-badge">
+                                        <i class="fas fa-globe"></i>
+                                        Available for remote work worldwide
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Quick Response Note -->
+                        <div class="quick-response-note">
+                            <i class="fas fa-bolt"></i>
+                            <p>I typically respond within 24 hours</p>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column: Contact Form -->
+                    <div class="contact-form-wrapper scroll-animate">
+                        <!-- Form Header -->
+                        <div class="contact-form-header">
+                            <h3>Start Your Project</h3>
+                            <p>Fill out the form below and I'll get back to you as soon as possible</p>
+                        </div>
+                        
+                        <!-- Contact Form -->
+                        <form id="contactForm" method="POST" action="https://formspree.io/f/xgoweynr">
+                            <!-- Form Grid -->
+                            <div class="form-grid">
+                                <!-- Name Field -->
+                                <div class="form-group">
+                                    <label for="name">Your Name *</label>
+                                    <input type="text" id="name" name="name" placeholder="Enter your full name" required>
+                                </div>
+                                
+                                <!-- Email Field -->
+                                <div class="form-group">
+                                    <label for="email">Email Address *</label>
+                                    <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                                </div>
+                                
+                                <!-- Project Type -->
+                                <div class="form-group full-width">
+                                    <label for="project-type">Project Type *</label>
+                                    <select id="project-type" name="project-type" required>
+                                        <option value="" disabled selected>Select a project type</option>
+                                        <option value="motion-graphics">Motion Graphics</option>
+                                        <option value="logo-design">Logo Design</option>
+                                        <option value="brand-identity">Brand Identity</option>
+                                        <option value="promotional-flyer">Promotional Flyer</option>
+                                        <option value="birthday-flyer">Birthday Flyer</option>
+                                        <option value="event-flyer">Event Flyer</option>
+                                        <option value="club-flyer">Club/Nightlife Flyer</option>
+                                        <option value="social-media">Social Media Graphics</option>
+                                        <option value="website-design">Website Design</option>
+                                        <option value="full-package">Full Brand Package</option>
+                                        <option value="consultation">Consultation</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Budget -->
+                                <div class="form-group">
+                                    <label for="budget">Project Budget</label>
+                                    <select id="budget" name="budget">
+                                        <option value="" selected>Select budget range</option>
+                                        <option value="under-50k">Under ₦50,000</option>
+                                        <option value="50k-100k">₦50,000 - ₦100,000</option>
+                                        <option value="100k-250k">₦100,000 - ₦250,000</option>
+                                        <option value="250k-500k">₦250,000 - ₦500,000</option>
+                                        <option value="500k-1m">₦500,000 - ₦1,000,000</option>
+                                        <option value="over-1m">Over ₦1,000,000</option>
+                                        <option value="not-sure">Not sure yet</option>
+                                        <option value="discuss">Prefer to discuss</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Timeline -->
+                                <div class="form-group">
+                                    <label for="timeline">Project Timeline</label>
+                                    <select id="timeline" name="timeline">
+                                        <option value="" selected>Select timeline</option>
+                                        <option value="asap">ASAP (Within 1 week)</option>
+                                        <option value="2-weeks">Within 2 weeks</option>
+                                        <option value="1-month">Within 1 month</option>
+                                        <option value="1-3-months">1-3 months</option>
+                                        <option value="flexible">Flexible timeline</option>
+                                        <option value="not-sure">Not sure yet</option>
+                                    </select>
+                                </div>
+                                
+                                <!-- Message -->
+                                <div class="form-group full-width">
+                                    <label for="message">Project Details *</label>
+                                    <textarea id="message" name="message" placeholder="Tell me about your project, goals, target audience, and any specific requirements..." required></textarea>
+                                </div>
+                            </div>
+                            
+                            <!-- Hidden Formspree fields -->
+                            <input type="hidden" name="_subject" value="New Project Inquiry - Maseo Visual Portfolio">
+                            <input type="text" name="_gotcha" style="display:none">
+                            
+                            <!-- Form Actions -->
+                            <div class="form-actions">
+                                <p class="required-note"><small>* Required fields</small></p>
+                                <button type="submit" class="btn submit-btn">
+                                    <span>Send Message</span>
+                                    <i class="fas fa-paper-plane"></i>
+                                </button>
+                            </div>
+                        </form>
+                        
+                        <!-- Success Message -->
+                        <div id="successMessage" class="success-message" style="display: none;">
+                            <div class="success-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h3>Message Sent Successfully!</h3>
+                            <p>Thank you for your inquiry. I've received your project details and will get back to you within 24 hours.</p>
+                            <p class="response-time"><i class="fas fa-clock"></i> Typical response time: 1-2 business hours</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- =========================================== -->
+    <!-- FOOTER - NOW VISIBLE -->
+    <!-- =========================================== -->
+    <footer class="main-footer">
+        <div class="container">
+            <!-- Footer Content -->
+            <div class="footer-content">
+                <!-- Footer Logo & Description -->
+                <div class="footer-logo scroll-animate">
+                    <span class="logo-text">MASEO VISUALS</span>
+                    <p>Creating impactful visual experiences since 2017</p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div class="footer-links scroll-animate">
+                    <h4>Quick Links</h4>
+                    <a href="#home-section">Home</a>
+                    <a href="#work-section">Portfolio</a>
+                    <a href="#about-section">About</a>
+                    <a href="#contact-section">Contact</a>
+                </div>
+                
+                <!-- Social Links -->
+                <div class="footer-social scroll-animate">
+                    <h4>Connect With Me</h4>
+                    <div class="social-icons">
+                        <a href="https://wa.me/2348150366290" target="_blank" aria-label="WhatsApp">
+                            <i class="fa-brands fa-whatsapp"></i>
+                        </a>
+                        <a href="https://www.instagram.com/ed_visual1" target="_blank" aria-label="Instagram">
+                            <i class="fa-brands fa-instagram"></i>
+                        </a>
+                        <a href="https://pin.it/1eQJwlrP8" target="_blank" aria-label="Pinterest">
+                            <i class="fa-brands fa-pinterest"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Bottom - REMOVED scroll-animate CLASS -->
+            <div class="footer-bottom">
+                <p>&copy; 2025 Emmanuel - Daniel - Osamase - Maseo Visuals. All rights reserved.</p>
+                <p class="footer-note">Crafted with <i class="fas fa-heart" aria-hidden="true"></i> and creativity</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- =========================================== -->
+    <!-- JAVASCRIPT -->
+    <!-- =========================================== -->
+    <script src="script.js"></script>
+
+    
+</body>
+</html>

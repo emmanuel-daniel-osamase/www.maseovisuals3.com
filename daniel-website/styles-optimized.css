@@ -1,0 +1,569 @@
+
+/* =========================================== */
+/* PERFORMANCE OPTIMIZATIONS - ADD TO END */
+/* =========================================== */
+
+/* 1. Smooth Filter Transitions */
+.portfolio-item {
+    transition: opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1), 
+                transform 0.3s cubic-bezier(0.23, 1, 0.32, 1) !important;
+}
+
+/* 2. Loading Skeletons */
+.portfolio-skeleton {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.skeleton-item {
+    background: var(--card-bg);
+    border-radius: 16px;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--border-color);
+}
+
+.skeleton-item::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255, 255, 255, 0.05),
+        transparent
+    );
+    animation: skeleton-shimmer 1.5s infinite;
+}
+
+@keyframes skeleton-shimmer {
+    0% { left: -100%; }
+    100% { left: 100%; }
+}
+
+.media-placeholder {
+    width: 100%;
+    height: 240px;
+    background: var(--secondary-color);
+    border-radius: 16px 16px 0 0;
+}
+
+/* 3. Filter Button Loading State */
+.filter-btn.loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.filter-btn.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 18px;
+    height: 18px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: button-spin 0.8s linear infinite;
+}
+
+@keyframes button-spin {
+    to { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+/* 4. Active Filter Indicator */
+.filter-btn.active {
+    position: relative;
+    overflow: hidden;
+}
+
+.filter-btn.active::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: 0 0 4px 4px;
+}
+
+/* 5. Reduce Animations on Low-Power Devices */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* 6. Mobile Performance Optimizations */
+@media (max-width: 768px) {
+    /* Reduce 3D effects on mobile */
+    .portfolio-item:hover {
+        transform: translateY(-5px) !important;
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2) !important;
+    }
+    
+    /* Reduce blur effects */
+    .portfolio-media::before {
+        opacity: 0.3 !important;
+    }
+    
+    /* Simplify slider effects */
+    .slider-card.prev,
+    .slider-card.next {
+        filter: blur(2px) brightness(0.9) !important;
+    }
+}
+
+/* 7. Optimize Compositing Layers */
+.portfolio-item,
+.slider-card,
+.principle,
+.skill-category {
+    isolation: isolate;
+    will-change: transform, opacity;
+}
+
+/* 8. Progressive Loading */
+img[loading="lazy"],
+video[loading="lazy"] {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+img[loading="lazy"].loaded,
+video[loading="lazy"].loaded {
+    opacity: 1;
+}
+
+/* 9. Optimize Initial Paint */
+#portfolio-items:empty {
+    min-height: 600px;
+    position: relative;
+}
+
+/* 10. Optimize 3D Slider for Mobile */
+@media (max-width: 768px) {
+    .slider-card {
+        transform-style: flat;
+    }
+}
+
+
+/* Add this anywhere in your CSS */
+.portfolio-media img, 
+.portfolio-media video, 
+.card-3d-img, 
+.card-3d-video {
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+
+/* =========================================== */
+/* FIX ABOUT ME PICTURE */
+/* =========================================== */
+
+/* Fix 1: About section image */
+.about-image-frame img.profile-image {
+    opacity: 1 !important;
+    visibility: visible !important;
+    display: block !important;
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    position: relative !important;
+    z-index: 1 !important;
+}
+
+/* Fix 2: Force image to show even if lazy loading fails */
+.about-image-frame {
+    position: relative;
+    overflow: hidden;
+}
+
+.about-image-frame::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--gradient-primary);
+    opacity: 0.1;
+    z-index: 0;
+}
+
+/* Fix 3: Ensure the image is loaded */
+.profile-image[src*="passport"] {
+    animation: fadeInImage 0.5s ease-in !important;
+}
+
+@keyframes fadeInImage {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Fix 4: Check if image has error */
+.profile-image:not([src]) {
+    background: var(--gradient-primary) !important;
+    min-height: 400px !important;
+}
+
+/* Fix 5: Mobile fix */
+@media (max-width: 768px) {
+    .profile-image {
+        min-height: 250px !important;
+    }
+}
+
+.slider-card {
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+
+
+/* =========================================== */
+/* COMPREHENSIVE MOBILE TEXT READABILITY FIX */
+/* =========================================== */
+
+/* Base mobile improvements (applies to all mobile) */
+@media (max-width: 1024px) {
+    /* Ensure all text containers stay within bounds */
+    .portfolio-item-content h3,
+    .portfolio-item-content p,
+    .card-3d-title,
+    .card-3d-desc {
+        max-width: 100% !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        hyphens: auto !important;
+    }
+    
+    /* Ensure portfolio text stays within image */
+    .portfolio-item-content {
+        position: absolute !important;
+        bottom: 0 !important;
+        left: 0 !important;
+        right: 0 !important;
+        z-index: 10 !important;
+        padding: 15px !important;
+        box-sizing: border-box !important;
+        overflow: hidden !important;
+    }
+    
+    /* Force text to fit within card */
+    .portfolio-item-content h3 {
+        max-width: calc(100% - 20px) !important;
+        word-break: break-word !important;
+        white-space: normal !important;
+    }
+    
+    .portfolio-item-content p {
+        max-width: calc(100% - 20px) !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+        text-overflow: ellipsis !important;
+    }
+}
+
+/* Tablet and larger phones (768px - 1024px) */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .portfolio-item-content h3 {
+        font-size: 1.05rem !important;
+        line-height: 1.2 !important;
+        padding: 6px 8px !important;
+    }
+    
+    .portfolio-item-content p {
+        font-size: 0.85rem !important;
+        line-height: 1.4 !important;
+        padding: 4px 8px !important;
+        -webkit-line-clamp: 2 !important;
+    }
+    
+    .hero-title {
+        font-size: 3.5rem !important;
+        line-height: 1 !important;
+    }
+}
+
+/* Standard smartphones (768px and below) */
+@media (max-width: 768px) {
+    /* CRITICAL FIX: Ensure text never overflows */
+    .portfolio-item-content {
+        min-height: 120px !important;
+        max-height: 45% !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: flex-end !important;
+    }
+    
+    .portfolio-item-content h3 {
+        font-size: clamp(0.95rem, 3.5vw, 1.1rem) !important; /* Fluid sizing */
+        line-height: 1.2 !important;
+        margin-bottom: 6px !important;
+        max-width: 95% !important;
+        word-break: break-word !important;
+        white-space: normal !important;
+        display: inline !important;
+    }
+    
+    .portfolio-item-content h3 span {
+        display: inline !important;
+        background: rgba(0, 0, 0, 0.85) !important;
+        padding: 4px 8px !important;
+        border-radius: 4px !important;
+        line-height: 1.3 !important;
+        box-decoration-break: clone !important;
+        -webkit-box-decoration-break: clone !important;
+    }
+    
+    .portfolio-item-content p {
+        font-size: clamp(0.8rem, 3vw, 0.9rem) !important; /* Fluid sizing */
+        line-height: 1.4 !important;
+        margin-bottom: 8px !important;
+        max-width: 95% !important;
+        display: inline !important;
+    }
+    
+    .portfolio-item-content p span {
+        display: inline !important;
+        background: rgba(0, 0, 0, 0.75) !important;
+        padding: 4px 8px !important;
+        border-radius: 4px !important;
+        line-height: 1.4 !important;
+        box-decoration-break: clone !important;
+        -webkit-box-decoration-break: clone !important;
+    }
+    
+    .view-details-btn {
+        font-size: clamp(0.75rem, 2.8vw, 0.85rem) !important;
+        padding: 8px 16px !important;
+        align-self: flex-start !important;
+        margin-top: 4px !important;
+    }
+    
+    /* Hero section fixes */
+    .hero-title {
+        font-size: clamp(2.2rem, 8vw, 3.2rem) !important;
+        line-height: 1 !important;
+    }
+    
+    .hero-title span {
+        display: block !important;
+        line-height: 0.95 !important;
+    }
+    
+    .typing-container {
+        font-size: clamp(1.1rem, 4vw, 1.5rem) !important;
+    }
+}
+
+/* Medium phones (480px - 768px) */
+@media (max-width: 768px) and (min-width: 481px) {
+    .portfolio-item-content h3 {
+        font-size: 1rem !important;
+        padding: 5px 8px !important;
+    }
+    
+    .portfolio-item-content p {
+        font-size: 0.85rem !important;
+        padding: 4px 8px !important;
+    }
+    
+    .hero-title {
+        font-size: 2.8rem !important;
+    }
+}
+
+/* Small phones (≤480px) */
+@media (max-width: 480px) {
+    /* EXTREME FIX: Guarantee text fits */
+    .portfolio-item-content {
+        padding: 12px !important;
+        min-height: 110px !important;
+    }
+    
+    .portfolio-item-content h3 {
+        font-size: 0.9rem !important;
+        line-height: 1.1 !important;
+        margin-bottom: 4px !important;
+        padding: 4px 6px !important;
+    }
+    
+    .portfolio-item-content h3 span {
+        padding: 3px 6px !important;
+        line-height: 1.2 !important;
+    }
+    
+    .portfolio-item-content p {
+        font-size: 0.75rem !important;
+        line-height: 1.3 !important;
+        margin-bottom: 6px !important;
+        padding: 3px 6px !important;
+        -webkit-line-clamp: 2 !important;
+    }
+    
+    .portfolio-item-content p span {
+        padding: 3px 6px !important;
+        line-height: 1.3 !important;
+    }
+    
+    .view-details-btn {
+        font-size: 0.7rem !important;
+        padding: 6px 12px !important;
+    }
+    
+    .hero-title {
+        font-size: 2rem !important;
+        line-height: 0.9 !important;
+    }
+    
+    .hero-title span {
+        line-height: 0.85 !important;
+    }
+    
+    .typing-container {
+        font-size: 1.1rem !important;
+        min-height: 35px !important;
+    }
+}
+
+/* Very small phones (≤360px) - Samsung Galaxy Fold, iPhone SE */
+@media (max-width: 360px) {
+    .portfolio-item-content {
+        padding: 8px !important;
+        min-height: 100px !important;
+    }
+    
+    .portfolio-item-content h3 {
+        font-size: 0.8rem !important;
+        padding: 3px 5px !important;
+    }
+    
+    .portfolio-item-content h3 span {
+        padding: 2px 5px !important;
+    }
+    
+    .portfolio-item-content p {
+        font-size: 0.7rem !important;
+        padding: 2px 5px !important;
+        -webkit-line-clamp: 1 !important;
+    }
+    
+    .portfolio-item-content p span {
+        padding: 2px 5px !important;
+    }
+    
+    .view-details-btn {
+        font-size: 0.65rem !important;
+        padding: 5px 10px !important;
+    }
+    
+    .hero-title {
+        font-size: 1.8rem !important;
+    }
+}
+
+/* Landscape orientation fixes */
+@media (max-height: 600px) and (orientation: landscape) {
+    .portfolio-item-content {
+        min-height: 100px !important;
+        padding: 10px !important;
+    }
+    
+    .portfolio-item-content h3 {
+        font-size: 0.9rem !important;
+        margin-bottom: 3px !important;
+    }
+    
+    .portfolio-item-content p {
+        font-size: 0.75rem !important;
+        margin-bottom: 5px !important;
+        -webkit-line-clamp: 1 !important;
+    }
+    
+    .hero-section {
+        min-height: 120vh !important;
+    }
+}
+
+/* 3D Slider text fixes for all mobile */
+@media (max-width: 1024px) {
+    .card-3d-title {
+        max-width: 90% !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+        font-size: clamp(0.85rem, 3vw, 1rem) !important;
+    }
+    
+    .card-3d-desc {
+        max-width: 90% !important;
+        word-wrap: break-word !important;
+        white-space: normal !important;
+        font-size: clamp(0.7rem, 2.5vw, 0.8rem) !important;
+        display: -webkit-box !important;
+        -webkit-line-clamp: 2 !important;
+        -webkit-box-orient: vertical !important;
+        overflow: hidden !important;
+    }
+    
+    .card-overlay {
+        padding: 10px 12px !important;
+    }
+}
+
+/* Light mode specific fixes */
+@media (max-width: 1024px) {
+    .light-mode .portfolio-item-content h3 span {
+        background: rgba(0, 0, 0, 0.9) !important;
+        color: white !important;
+    }
+    
+    .light-mode .portfolio-item-content p span {
+        background: rgba(0, 0, 0, 0.85) !important;
+        color: rgba(255, 255, 255, 0.95) !important;
+    }
+}
+
+/* EMERGENCY FIX: If text still overflows */
+.portfolio-item-content * {
+    max-width: 100% !important;
+    overflow: hidden !important;
+}
+
+/* Prevent any horizontal scroll caused by text */
+.portfolio-item {
+    overflow: hidden !important;
+}
+
+.portfolio-item-content {
+    overflow: hidden !important;
+}
+
+
+
+/* PC FIX - ADD THIS AT THE VERY END OF YOUR CSS */
+@media (min-width: 1025px) {
+    .portfolio-item-content * {
+        max-width: 100% !important;
+        overflow: visible !important;
+    }
+}
+/* End of Comprehensive Mobile Text Readability Fix */
